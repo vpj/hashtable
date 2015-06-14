@@ -21,7 +21,7 @@
 
      resize: (reserved) ->
       if not reserved?
-       reserved = parseInt @_options.reserved * @_options.resizeFactor
+       reserved = Math.floor @_options.reserved * @_options.resizeFactor
 
       console.log reserved
       next = @_next
@@ -67,8 +67,8 @@
      get: (key, value) ->
       n = key % @_reserved
       while true
+       return @_values[n] if @_keys[n] is key
        break if @_next[n] < 0
-       return @_values[n] if @_keys[n] = key
        n = @_next[n]
 
       return @_options.default
@@ -76,7 +76,7 @@
      toJSON: ->
       obj = {}
       for i in [0...@_M] when @_next[i] isnt EMPTY
-       obj[keys[i]] = values[i]
+       obj[@_keys[i]] = @_values[i]
 
       return obj
 
