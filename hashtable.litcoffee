@@ -23,7 +23,6 @@
       if not reserved?
        reserved = Math.floor @_options.reserved * @_options.resizeFactor
 
-      console.log reserved
       next = @_next
       values = @_values
       keys = @_keys
